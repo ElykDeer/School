@@ -1,0 +1,53 @@
+class HT:
+    def __init__(self):
+        self._size=0
+        self._A=[ [] for i in range(10)]
+    def _bucket(self,k):
+        return self._A[hash(k)%len(self._A)]
+    def __getitem__(self,key):
+        for k,v in self._bucket(key):
+            if key==k:
+                return v
+        raise KeyError( "Key Error:   "+ repr(k))
+    def __setitem__(self,k,v):
+        b=self._bucket(k)
+        for i in range(len(b)):
+            if k==b[i][0]:
+                b[i][1]=v
+                return
+        b.append((k,v))
+        self._size+=1
+        if self._size > 2* len(self._A):
+            self._resize(2* len(self._A))
+    def __delitem__(self,k):
+        b=self._bucket(k)
+        for i in range(len(b)):
+            if k==b[i][0]:
+                b.pop(i)
+                self._size-=1
+                return
+        raise KeyError( "Key Error:   "+ repr(k))
+    def __len__(self):
+        return self._size
+    def __contains__(self,key):
+        b=self._bucket(key)
+        for k,v in b:
+            if k==key:
+                return True
+        return False
+    def __iter__(self):
+        for b in self._A:
+            for k,v in b:
+                yield k
+    def keys(self):
+        return list(iter(self))
+    def values(self):
+        return [self[k] for k in self]
+    def items(self):
+        return [(k,self[k]) for k in self]
+    def _resize(self,newsize):
+        data=self.items()
+        self._A=[[] for i in range(newsize)]
+        self._size=0
+        for k,v in data:
+            self[k]=v
