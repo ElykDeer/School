@@ -223,6 +223,8 @@ class Map:
                     stroke(255-v._dist/2, 0, 0+v._dist/2)
                     line(v[0], v[1], w[0], w[1])
                 
+                
+    
     def _DFS(self, v, answer={}, distance=0):
         answer[v]=True
         #if distance>500:
