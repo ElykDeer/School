@@ -1,6 +1,6 @@
-import lab10
+import lab10helper
 
-class positionalList(lab10.PositionalList):
+class positionalList(lab10helper.PositionalList):
     def __len__(self):
         p=self._header
         count=0
@@ -17,7 +17,7 @@ class positionalList(lab10.PositionalList):
         
         b._next, a._prev, self._trailer._prev, a._next = a, b, b, self._trailer
 
-class linkedBinaryTree(lab10.LinkedBinaryTree):
+class linkedBinaryTree(lab10helper.LinkedBinaryTree):
     def flip(self, p=-1):
         if p==-1:
             p=self.root()
@@ -53,7 +53,7 @@ def stringTree(s):
     return T
             
         
-class absoluteHeap(lab10.HeapPriorityQueue):
+class absoluteHeap(lab10helper.HeapPriorityQueue):
     def add(self,k):
         super().add(abs(k), k)
     def remove_absolute_min(self):
