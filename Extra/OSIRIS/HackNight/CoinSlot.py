@@ -9,36 +9,35 @@ import socket
 
 def figureOutMoney(cents): #Let's just use the source code to calculate how much money we need of each type
     coins = []
-    cents *= 100.0
-    coins.append(int(cents / 1000000.0))
-    cents %= 1000000.0
-    coins.append(int(cents / 500000.0))
-    cents %= 500000.0
-    coins.append(int(cents / 100000.0))
-    cents %= 100000.0
-    coins.append(int(cents / 50000.0))
-    cents %= 50000.0
-    coins.append(int(cents / 10000.0))
-    cents %= 10000.0
-    coins.append(int(cents / 5000.0))
-    cents %= 5000.0
-    coins.append(int(cents / 2000.0))
-    cents %= 2000.0
-    coins.append(int(cents / 1000.0))
-    cents %= 1000.0
-    coins.append(int(cents / 500.0))
-    cents %= 500.0
-    coins.append(int(cents / 100.0))
-    cents %= 100.0
-    coins.append(int(cents / 50.0))
-    cents %= 50.0
-    coins.append(int(cents / 25.0))
-    cents %= 25.0
-    coins.append(int(cents / 10.0))
-    cents %= 10.0
-    print("COINS LEFT: "+str(cents))
-    coins.append(int(cents / 5.0))
-    cents %= 5.0
+    cents = cents*100
+    coins.append(int(round(cents)) // 1000000)
+    cents = int(round(cents)) % 1000000
+    coins.append(int(round(cents)) // 500000)
+    cents = int(round(cents)) % 500000
+    coins.append(int(round(cents)) // 100000)
+    cents = int(round(cents)) % 100000
+    coins.append(int(round(cents)) // 50000)
+    cents = int(round(cents)) % 50000
+    coins.append(int(round(cents)) // 10000)
+    cents = int(round(cents)) % 10000
+    coins.append(int(round(cents)) // 5000)
+    cents = int(round(cents)) % 5000
+    coins.append(int(round(cents)) // 2000)
+    cents = int(round(cents)) % 2000
+    coins.append(int(round(cents)) // 1000)
+    cents = int(round(cents)) % 1000
+    coins.append(int(round(cents)) // 500)
+    cents = int(round(cents)) % 500
+    coins.append(int(round(cents)) // 100)
+    cents = int(round(cents)) % 100
+    coins.append(int(round(cents)) // 50)
+    cents = int(round(cents)) % 50
+    coins.append(int(round(cents)) // 25)
+    cents = int(round(cents)) % 25
+    coins.append(int(round(cents)) // 10)
+    cents = int(round(cents)) % 10
+    coins.append(int(round(cents)) // 5)
+    cents = int(round(cents)) % 5
     coins.append(int(round(cents)))
 
     return coins
@@ -52,7 +51,13 @@ sock.connect(("misc.chal.csaw.io",8000))
 try:
     #Start getting data
     while 1:
-        money = float(sock.recv(6)[1:]) #Get money amount
+        intput = '' #Input a new number until the newline
+        accumulatedString = '' #String that will build up from accumulating one digit at a time
+        while (intput != '\n'):
+            accumulatedString += intput
+            intput = sock.recv(1)
+        money = float(accumulatedString[1:]) #need to convert this to a number
+        
         answers = figureOutMoney(money) #figure out the cents needed to submit
         
         print("Amount: " + str(money) + "\tDigested: " + str(answers))
