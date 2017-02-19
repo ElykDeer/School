@@ -1,0 +1,144 @@
+
+(process:17508): GLib-WARNING **: /build/glib2.0-prJhLS/glib2.0-2.48.2/./glib/gmem.c:483: custom memory allocation vtable not supported
+Success
+Success
+SaveVM v3 format forces exact matches between devices on load and save, including on replay.
+Unknown savevm section or instance 'vmmouse' 0
+qemu-system-i386: Error -22 while loading VM state
+adding /home/kyle/Desktop/School/Extra/Research/panda/qemu/i386-softmmu/panda_plugins/panda_callstack_instr.so to panda_plugin_files 0
+adding /home/kyle/Desktop/School/Extra/Research/panda/qemu/i386-softmmu/panda_plugins/panda_stringsearch.so to panda_plugin_files 1
+loading /home/kyle/Desktop/School/Extra/Research/panda/qemu/i386-softmmu/panda_plugins/panda_callstack_instr.so
+Initializing plugin callstack_instr
+loading /home/kyle/Desktop/School/Extra/Research/panda/qemu/i386-softmmu/panda_plugins/panda_stringsearch.so
+Initializing plugin stringsearch
+panda_require: callstack_instr
+panda_load_plugin: /home/kyle/Desktop/School/Extra/Research/panda/qemu/i386-softmmu/panda_plugins/panda_callstack_instr.so already loaded
+search strings file [stringsearch_search_strings.txt]
+stringsearch: added string of length 10 to search set
+loading snapshot
+... done.
+opening nondet log for read :	./starcraft4-rr-nondet.log
+starcraft4:      617394 (  1.03%) instrs.    2.04 sec.  0.17 GB ram.
+total_instr in replay:   60020353
+starcraft4:     1249597 (  2.08%) instrs.    2.92 sec.  0.20 GB ram.
+starcraft4:     1815332 (  3.02%) instrs.    3.52 sec.  0.21 GB ram.
+starcraft4:     2436849 (  4.06%) instrs.    4.34 sec.  0.24 GB ram.
+starcraft4:     3027763 (  5.04%) instrs.    4.74 sec.  0.24 GB ram.
+starcraft4:     3628028 (  6.04%) instrs.    5.30 sec.  0.25 GB ram.
+starcraft4:     4208449 (  7.01%) instrs.    5.99 sec.  0.27 GB ram.
+starcraft4:     4806090 (  8.01%) instrs.    6.56 sec.  0.28 GB ram.
+starcraft4:     5426671 (  9.04%) instrs.    7.19 sec.  0.30 GB ram.
+starcraft4:     6013579 ( 10.02%) instrs.    7.75 sec.  0.31 GB ram.
+starcraft4:     6873287 ( 11.45%) instrs.    8.34 sec.  0.31 GB ram.
+starcraft4:     7580949 ( 12.63%) instrs.    8.75 sec.  0.31 GB ram.
+starcraft4:     8058328 ( 13.43%) instrs.    9.11 sec.  0.32 GB ram.
+starcraft4:     9059352 ( 15.09%) instrs.    9.68 sec.  0.32 GB ram.
+starcraft4:     9419566 ( 15.69%) instrs.    9.92 sec.  0.32 GB ram.
+starcraft4:     9661641 ( 16.10%) instrs.   10.14 sec.  0.32 GB ram.
+starcraft4:    10228377 ( 17.04%) instrs.   10.53 sec.  0.33 GB ram.
+WRITE Match of str 0 at: instr_count=10649030 :  0045b42d 00437e77 06cba000
+WRITE Match of str 0 at: instr_count=10651145 :  0045b42d 00437eee 06cba000
+starcraft4:    10826141 ( 18.04%) instrs.   11.05 sec.  0.34 GB ram.
+WRITE Match of str 0 at: instr_count=10848984 :  0045b42d 00437e77 06cba000
+WRITE Match of str 0 at: instr_count=10851099 :  0045b42d 00437eee 06cba000
+READ Match of str 0 at: instr_count=10860769 :  00437a2b 0049aad4 06cba000
+READ Match of str 0 at: instr_count=10861025 :  00437a2b 0049aad4 06cba000
+READ Match of str 0 at: instr_count=10861318 :  00437a2b 0049aad4 06cba000
+READ Match of str 0 at: instr_count=10861639 :  00437a2b 0049aad4 06cba000
+READ Match of str 0 at: instr_count=10862351 :  00437a68 00411362 06cba000
+WRITE Match of str 0 at: instr_count=10862351 :  00437a68 00411362 06cba000
+READ Match of str 0 at: instr_count=10862854 :  0045b73a 00411362 06cba000
+WRITE Match of str 0 at: instr_count=10862854 :  0045b73a 00411362 06cba000
+starcraft4:    11472198 ( 19.11%) instrs.   11.72 sec.  0.35 GB ram.
+starcraft4:    12062015 ( 20.10%) instrs.   12.04 sec.  0.35 GB ram.
+starcraft4:    13082466 ( 21.80%) instrs.   12.81 sec.  0.36 GB ram.
+starcraft4:    13229657 ( 22.04%) instrs.   13.00 sec.  0.37 GB ram.
+starcraft4:    13811857 ( 23.01%) instrs.   13.62 sec.  0.38 GB ram.
+starcraft4:    14405429 ( 24.00%) instrs.   13.95 sec.  0.38 GB ram.
+starcraft4:    15005988 ( 25.00%) instrs.   14.52 sec.  0.39 GB ram.
+starcraft4:    16011343 ( 26.68%) instrs.   14.85 sec.  0.39 GB ram.
+starcraft4:    16210544 ( 27.01%) instrs.   15.05 sec.  0.40 GB ram.
+starcraft4:    16837130 ( 28.05%) instrs.   15.73 sec.  0.41 GB ram.
+starcraft4:    18300471 ( 30.49%) instrs.   16.56 sec.  0.42 GB ram.
+starcraft4:    18312481 ( 30.51%) instrs.   16.57 sec.  0.42 GB ram.
+starcraft4:    18649848 ( 31.07%) instrs.   16.93 sec.  0.43 GB ram.
+starcraft4:    19218693 ( 32.02%) instrs.   17.48 sec.  0.44 GB ram.
+starcraft4:    19852057 ( 33.08%) instrs.   17.85 sec.  0.44 GB ram.
+starcraft4:    20433340 ( 34.04%) instrs.   18.39 sec.  0.45 GB ram.
+starcraft4:    21050223 ( 35.07%) instrs.   18.94 sec.  0.46 GB ram.
+starcraft4:    21627039 ( 36.03%) instrs.   19.54 sec.  0.47 GB ram.
+starcraft4:    22212879 ( 37.01%) instrs.   19.68 sec.  0.47 GB ram.
+starcraft4:    22903900 ( 38.16%) instrs.   20.12 sec.  0.47 GB ram.
+starcraft4:    23439906 ( 39.05%) instrs.   20.70 sec.  0.48 GB ram.
+starcraft4:    24019520 ( 40.02%) instrs.   21.22 sec.  0.49 GB ram.
+starcraft4:    25000351 ( 41.65%) instrs.   21.98 sec.  0.49 GB ram.
+starcraft4:    25432439 ( 42.37%) instrs.   22.18 sec.  0.49 GB ram.
+starcraft4:    26431521 ( 44.04%) instrs.   22.50 sec.  0.49 GB ram.
+starcraft4:    26545550 ( 44.23%) instrs.   22.58 sec.  0.50 GB ram.
+starcraft4:    27019015 ( 45.02%) instrs.   23.00 sec.  0.50 GB ram.
+starcraft4:    27619249 ( 46.02%) instrs.   23.53 sec.  0.51 GB ram.
+starcraft4:    28213242 ( 47.01%) instrs.   23.95 sec.  0.52 GB ram.
+starcraft4:    28882747 ( 48.12%) instrs.   24.52 sec.  0.52 GB ram.
+starcraft4:    29425560 ( 49.03%) instrs.   24.82 sec.  0.53 GB ram.
+starcraft4:    30212286 ( 50.34%) instrs.   25.63 sec.  0.53 GB ram.
+starcraft4:    30807662 ( 51.33%) instrs.   26.20 sec.  0.54 GB ram.
+READ Match of str 0 at: instr_count=30991181 :  0040331b 00411362 06cba000
+WRITE Match of str 0 at: instr_count=30991181 :  0040331b 00411362 06cba000
+READ Match of str 0 at: instr_count=31015385 :  0047d949 0047d4cb 06cba000
+READ Match of str 0 at: instr_count=31045766 :  004286ff 0044c951 06cba000
+READ Match of str 0 at: instr_count=31046389 :  0044c964 00411698 06cba000
+WRITE Match of str 0 at: instr_count=31046389 :  0044c964 00411698 06cba000
+starcraft4:    31215935 ( 52.01%) instrs.   26.60 sec.  0.55 GB ram.
+starcraft4:    33168104 ( 55.26%) instrs.   27.24 sec.  0.55 GB ram.
+starcraft4:    33444528 ( 55.72%) instrs.   27.32 sec.  0.55 GB ram.
+starcraft4:    35053302 ( 58.40%) instrs.   27.71 sec.  0.55 GB ram.
+starcraft4:    36708183 ( 61.16%) instrs.   28.13 sec.  0.55 GB ram.
+starcraft4:    38316747 ( 63.84%) instrs.   28.53 sec.  0.55 GB ram.
+starcraft4:    38316747 ( 63.84%) instrs.   28.53 sec.  0.55 GB ram.
+starcraft4:    38316767 ( 63.84%) instrs.   28.53 sec.  0.55 GB ram.
+starcraft4:    38316767 ( 63.84%) instrs.   28.53 sec.  0.55 GB ram.
+starcraft4:    38316768 ( 63.84%) instrs.   28.53 sec.  0.55 GB ram.
+starcraft4:    38316768 ( 63.84%) instrs.   28.53 sec.  0.55 GB ram.
+starcraft4:    38316794 ( 63.84%) instrs.   28.53 sec.  0.55 GB ram.
+starcraft4:    38845685 ( 64.72%) instrs.   28.67 sec.  0.55 GB ram.
+starcraft4:    39927892 ( 66.52%) instrs.   28.94 sec.  0.55 GB ram.
+starcraft4:    41042030 ( 68.38%) instrs.   29.22 sec.  0.55 GB ram.
+starcraft4:    42410135 ( 70.66%) instrs.   29.58 sec.  0.55 GB ram.
+starcraft4:    42495570 ( 70.80%) instrs.   29.64 sec.  0.55 GB ram.
+starcraft4:    42570224 ( 70.93%) instrs.   29.67 sec.  0.55 GB ram.
+starcraft4:    42870047 ( 71.43%) instrs.   29.79 sec.  0.55 GB ram.
+starcraft4:    42870047 ( 71.43%) instrs.   29.79 sec.  0.55 GB ram.
+starcraft4:    43230046 ( 72.03%) instrs.   30.10 sec.  0.55 GB ram.
+starcraft4:    43950533 ( 73.23%) instrs.   30.38 sec.  0.56 GB ram.
+starcraft4:    44475991 ( 74.10%) instrs.   30.68 sec.  0.56 GB ram.
+starcraft4:    45059814 ( 75.07%) instrs.   31.26 sec.  0.57 GB ram.
+starcraft4:    45664692 ( 76.08%) instrs.   31.85 sec.  0.58 GB ram.
+starcraft4:    46344777 ( 77.22%) instrs.   32.42 sec.  0.58 GB ram.
+starcraft4:    46852851 ( 78.06%) instrs.   32.88 sec.  0.59 GB ram.
+starcraft4:    47507578 ( 79.15%) instrs.   33.33 sec.  0.59 GB ram.
+starcraft4:    48106873 ( 80.15%) instrs.   33.67 sec.  0.59 GB ram.
+starcraft4:    48626549 ( 81.02%) instrs.   34.00 sec.  0.59 GB ram.
+starcraft4:    49323871 ( 82.18%) instrs.   34.46 sec.  0.59 GB ram.
+starcraft4:    49838166 ( 83.04%) instrs.   34.82 sec.  0.60 GB ram.
+starcraft4:    50434763 ( 84.03%) instrs.   35.26 sec.  0.60 GB ram.
+starcraft4:    51240977 ( 85.37%) instrs.   35.71 sec.  0.60 GB ram.
+starcraft4:    51695294 ( 86.13%) instrs.   35.99 sec.  0.60 GB ram.
+starcraft4:    53032102 ( 88.36%) instrs.   36.39 sec.  0.60 GB ram.
+starcraft4:    53056299 ( 88.40%) instrs.   36.42 sec.  0.61 GB ram.
+starcraft4:    53422461 ( 89.01%) instrs.   36.77 sec.  0.61 GB ram.
+starcraft4:    54027659 ( 90.02%) instrs.   37.30 sec.  0.61 GB ram.
+starcraft4:    54910549 ( 91.49%) instrs.   37.96 sec.  0.62 GB ram.
+starcraft4:    55263286 ( 92.07%) instrs.   38.08 sec.  0.62 GB ram.
+starcraft4:    55953793 ( 93.22%) instrs.   38.71 sec.  0.62 GB ram.
+starcraft4:    56445541 ( 94.04%) instrs.   39.07 sec.  0.62 GB ram.
+starcraft4:    57066400 ( 95.08%) instrs.   39.80 sec.  0.63 GB ram.
+starcraft4:    57655114 ( 96.06%) instrs.   40.38 sec.  0.64 GB ram.
+starcraft4:    58222285 ( 97.00%) instrs.   40.76 sec.  0.64 GB ram.
+starcraft4:    58832581 ( 98.02%) instrs.   41.09 sec.  0.64 GB ram.
+starcraft4:    59562574 ( 99.24%) instrs.   41.61 sec.  0.65 GB ram.
+./starcraft4-rr-nondet.log:  log is empty.
+Replay completed successfully. 1
+Time taken was: 43 seconds.
+max_queue_len = 64
+63 items on recycle list, 6048 bytes total
+Replay completed successfully 2.
