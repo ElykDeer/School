@@ -290,7 +290,7 @@ void readFileAndRun(string inputFileName);
 int main()
 {
 	//Just one call
-	readFileAndRun("warriors.txt");
+	readFileAndRun("warriors2.txt");
 }
 
 

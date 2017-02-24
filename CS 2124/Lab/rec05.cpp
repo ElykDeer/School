@@ -1,311 +1,240 @@
 /* Author: Kyle Martin
- *
+ * 
  * This code was written for the class CS 2124
- *
- * This code was expressly used for an exercise
- *  by my instructor in pointers.
- *
- * To clarify, this code was written for rec04,
- *  but is named as such to match spec.
- *
+ * 
+ * The purpose of this code is to 
+ * 
  * */
+
 
 #include <iostream>
 #include <string.h>
-#include <fstream>
 #include <vector>
-#include <stdlib.h>
 #include <sstream>
 using namespace std;
 
-//Ex16Struct:
-struct Complex {
-   double real;
-   double img;
-};
+const int SEMESTER_LENGTH = 14;
 
-//Ex17Class:
-/*class PlainOldClass {
-public:
-   PlainOldClass() : x(-72) {}
-   int getX() const { return x; }
-   void setX( int val )  { x = val; }
-private:
-   int x;
-};*/
-
-
-//Ex18Class:
-class PlainOldClass {
-public:
-   PlainOldClass() : x(-72) {}
-   int getX() const { return x; }
-   //void setX( int x )  { x = x; } // HMMMM???
-   void setX( int x )  { this->x = x; } // No confusion!
-private:
-   int x;
-};
-
-//Ex28Class:
-class Colour {
-public:
-    Colour( const string& name, unsigned r, unsigned g, unsigned b )
-        : name(name), r(r), g(g), b(b) {}
-    void display() const {
-        cout << name << " (RBG: " << r << "," << g<< "," << b << ")";
-    }
-private:
-    string   name;    // what we call this colour
-    unsigned r, g, b; // red/green/blue values for displaying
-};
-
-//Task29Classes(2):
-class SpeakerSystem {
-   public:
-   void vibrateSpeakerCones( unsigned signal ) const {
-
-      cout << "Playing: " << signal << "Hz sound..." << endl;
-      cout << "Buzz, buzzy, buzzer, bzap!!!\n";
-   }
-};
-
-class Amplifier {
-public:
-   void attachSpeakers( const SpeakerSystem& spkrs )
-   {
-      if( attachedSpeakers )
-         cout << "already have speakers attached!\n";
-      else
-         attachedSpeakers = &spkrs;
-   }
-   void detachSpeakers()
-   { attachedSpeakers = nullptr; }
-     // should there be an "error" message if not attached?
-   void playMusic( ) const {
-      if( attachedSpeakers )
-         attachedSpeakers -> vibrateSpeakerCones( 440 );
-      else
-         cout << "No speakers attached\n";
-   }
-private:
-   const SpeakerSystem* attachedSpeakers = nullptr;
-};
-
-
-//Ex30
-class Person {
-public:
-    Person( const string& name ) : name(name) {}
-    void movesInWith( Person& newRoomate ) {
-        roomie = &newRoomate;        // now I have a new roomie
-        newRoomate.roomie = this;    // and now they do too
-    }
-    string getName() const { return name; }
-    // Don't need to use getName() below, just there for you to use in debugging.
-    string getRoomiesName() const { return roomie->getName(); }
-private:
-    Person* roomie;
-    string name;
-};
-
-
-int main()
+class Section
 {
-    int x;
-    x = 10;
-    cout << "x = " << x << endl;
+public:
+	Section(const string& sectionName, const string& day, const unsigned int time):
+		classTime(day, time), sectionName(sectionName) {}
 
-    //Ex08
-    int * p;
-    p = &x;
-    cout << "p = " << p << endl;
+	Section(const Section& originalSection): classTime(originalSection.classTime), sectionName(originalSection.sectionName)
+	{
+		for (StudentRecord* const student : originalSection.GradeRecord)
+			GradeRecord.push_back(new StudentRecord(*student));
+	}
 
-    //Ex09
-    //p = 0x0012fed4;
+	void addStudent(const string& name)
+		{ GradeRecord.push_back(new StudentRecord(name)); }
 
-    //Ex10
-    cout << "p points to where " << *p << " is stored\n";
-    cout << "*p contains " << *p << endl;
+	void display() const
+	{
+		cout << "Section " << sectionName << " on ";
+		classTime.get();
+		cout << ".";
+		
+		if (GradeRecord.size() == 0)
+			cout << " Students: None\n";
+		else
+			for (const StudentRecord* const student : GradeRecord)
+			{
+				cout << endl;
+				student->print();
+			}
+		cout<<endl;
+				
+	}
+	
+	void addGrade(const string& studentName, const int grade, const int week)
+	{
+		//Find Student
+		for (StudentRecord* const student : GradeRecord)
+			if (student->getName() == studentName)
+				student->addGrade(grade, week);
+	}
+	
+	~Section()
+	{
+		cout << endl << "Section " << sectionName << " is being deleted." << endl;
+		for (StudentRecord* const student : GradeRecord)
+		{
+			cout << "Deleting " << student->getName() << "." << endl;
+			delete student;
+		}
+	}
+	
+	
+private:
+	//CLasses have times!
+	class TimeSlot
+	{
+	public:
+		TimeSlot(const string& day, const unsigned int hour): day(day), hour(hour) {}
+		
+		//Return a formatted string of day and time
+		void get() const
+		{
+			cout << day << " at ";  
+			if (hour < 12)
+				cout << hour << "am";
+			else if (hour > 12)
+				cout << hour-12 << "pm";
+			else
+				cout << hour << "pm";
+		}
+			
+	private:
+		const string day;
+		const unsigned int hour;
+	};
+	
+	class StudentRecord
+	{
+	public:
+		StudentRecord(const string& name): name(name), WeeklyGrades(SEMESTER_LENGTH, -1) {}
+		
+		string getName() const
+			{ return name; }
+		
+		void print() const
+		{
+			cout << "Student: " << name << ", Grades: ";
+			for (const int grade : WeeklyGrades)
+				cout << " " << grade;
+		}
+		
+		void addGrade(const int grade, const int week)
+			{ WeeklyGrades[week-1] = grade; }
+		
+	private:
+		string name;
+		vector <int> WeeklyGrades;
+	};
+	
+	vector <StudentRecord*> GradeRecord;
+	TimeSlot classTime;
+	string sectionName;
+};
 
-    //Ex11
-    *p = -2763;
-    cout << "p points to where " << *p << " is stored\n";
-    cout << "*p now contains " << *p << endl;
-    cout << "x now contains " << x << endl;
 
-    //Ex12
-    int y(13);
-    cout << "y contains " << y << endl;
-    p = &y;
-    cout << "p now points to where " << *p << " is stored\n";
-    cout << "*p now contains " << *p << endl;
-    *p = 980;
-    cout << "p points to where " << *p << " is stored\n";
-    cout << "*p now contains " << *p << endl;
-    cout << "y now contains " << y << endl;
+class LabWorker
+{
+public:
+	LabWorker(string name): name(name)
+	{
+		//Check if they have a "good" name (more than one letter), and if they don't, don't let them be used.
+		if (!(name.size() > 1))
+		{
+			cerr << "\nInvalid name!!\n\n";
+			certified = false;
+		} //Otherwise, good! They've been approved to work
+	}
+	
+	void addSection (Section& newAssignment)
+	{
+		if (!isQualified())
+			cout << name << " is not qualified to teach.\n";
+		else
+			lab = &newAssignment;
+	}
 
-    //Ex13
-    int* q;
-    q = p;
-    cout << "q points to where " << *q << " is stored\n";
-    cout << "*q contains " << *q << endl;
+	void display() const
+	{
+		if (!isQualified())
+			cout << name << " is not qualified to teach.\n";
+		else if (!lab)
+			cout << name << " does not have a section.\n";
+		else
+		{
+			cout << name << " has ";
+			lab->display();
+		}
+	}
+	
+	void addGrade(const string& studentName, const int grade, const int week)
+	{
+		if (!isQualified())
+			cout << name << " is not qualified to teach.\n";
+		else
+			lab->addGrade(studentName, grade, week);
+	}
+	
+private:
+	Section* lab = nullptr;
+	
+	bool isQualified() const
+		{ return certified; }
 
-    //Ex 14
-    double d(33.44);
-    double* pD(&d);
-    *pD = *p;
-    *pD = 73.2343;
-    *p  = *pD;
-    *q  = *p;
-    //pD  = p;
-    //p   = pD;
+	string name;
+	bool certified = true;
+	
+};
 
-    //Ex15
-    int joe( 24 );
-    const int sal( 19 );
-    int*  pI;
-    pI = &joe;
-    *pI = 234;
-    //  pI = &sal;
-    *pI = 7623;
 
-    const int* pcI;
-    pcI = &joe;
-    // *pcI = 234;
-    pcI = &sal;
-    // *pcI = 7623;
+// Test code
+void doNothing(Section sec) { sec.display(); }
 
-    //int* const cpI;
-    int* const cpI(&joe);
-    //int* const cpI(&sal);
-    //  cpI = &joe;
-    *cpI = 234;
-    //  cpI = &sal;
-    *cpI = 7623;
+int main() {
 
-    //const int* const cpcI;
-    //const int* const cpcI(&joe);
-    const int* const cpcI(&sal);
-    //  cpcI = &joe;
-    // *cpcI = 234;
-    //  cpcI = &sal;
-    // *cpcI = 7623;
+	cout << "Test 1: Defining a section\n";
+	Section secA2("A2", "Tuesday", 16);
+	secA2.display();
 
-    //Ex16
-    Complex c = {11.23,45.67};
-    Complex* pC(&c);
-    //cout << "real: " << *pC.real << "\nimaginary: " << *pC.img << endl;
-    //cout << "real: " << (*pC).real << "\nimaginary: " << (*pC).img << endl;
-    cout << "real: " << pC->real << "\nimaginary: " << pC->img << endl;
+	cout << "\nTest 2: Adding students to a section\n";
+	secA2.addStudent("John");
+	secA2.addStudent("George");
+	secA2.addStudent("Paul");
+	secA2.addStudent("Ringo");
+	secA2.display();
 
-    //Ex17
-    PlainOldClass poc;
-    PlainOldClass* ppoc( &poc );
-    cout << ppoc->getX() << endl;
-    ppoc->setX( 2837 );
-    cout << ppoc->getX() << endl;
+	cout << "\nTest 3: Defining a lab worker.\n";
+	LabWorker moe( "Moe" );
+	moe.display();
 
-    //Ex19
-    int* pDyn = new int(3); // p points to an int initialized to 3 on the heap
-    *pDyn = 17;
+	cout << "\nTest 4: Adding a section to a lab worker.\n";
+	moe.addSection( secA2 );
+	moe.display();
 
-    cout << "The " << *pDyn
-     << " is stored at address " << pDyn
-     << " which is in the heap\n";
+	cout << "\nTest 5: Adding a second section and lab worker.\n";
+	LabWorker jane( "Jane" );
+	Section secB3( "B3", "Thursday", 11 );
+	secB3.addStudent("Thorin");
+	secB3.addStudent("Dwalin");
+	secB3.addStudent("Balin");
+	secB3.addStudent("Kili");
+	secB3.addStudent("Fili");
+	secB3.addStudent("Dori");
+	secB3.addStudent("Nori");
+	secB3.addStudent("Ori");
+	secB3.addStudent("Oin");
+	secB3.addStudent("Gloin");
+	secB3.addStudent("Bifur");
+	secB3.addStudent("Bofur");
+	secB3.addStudent("Bombur");
+	jane.addSection( secB3 );
+	jane.display();
 
-    //Ex20
-    cout << pDyn << endl;
-    delete pDyn;
-    cout << pDyn << endl;
+	cout << "\nTest 6: Adding some grades for week one\n";
+	moe.addGrade("John", 17, 1);  
+	moe.addGrade("Paul", 19, 1);  
+	moe.addGrade("George", 16, 1);  
+	moe.addGrade("Ringo", 7, 1);  
+	moe.display();
 
-    cout << "The 17 might STILL be stored at address " << pDyn<< " even though we deleted pDyn\n";
-    cout << "But can we dereference pDyn?  We can try.  This might crash... " << *pDyn << ".  Still here?\n";
+	cout << "\nTest 7: Adding some grades for week three (skipping week 2)\n";
+	moe.addGrade("John", 15, 3);  
+	moe.addGrade("Paul", 20, 3);  
+	moe.addGrade("Ringo", 0, 3);  
+	moe.addGrade("George", 16, 3);  
+	moe.display();
 
-    //Ex21
-    pDyn = nullptr;
-    double* pDouble( nullptr );
+	cout << "\nTest 8: We're done (almost)! \nWhat should happen to all those students (or rather their records?)\n";
 
-    //Ex22
-    //cout << "Can we dereference nullptr?  " << *pDyn << endl;
-    //cout << "Can we dereference nullptr?  " << *pDouble << endl;
+	cout << "\nTest 9: Oh, IF you have covered copy constructors in lecture, then make sure the following call works\n";
+	doNothing(secA2);
+	cout << "Back from doNothing\n\n";
 
-    //Ex24
-    double* pTest = new double( 12 );
-    delete pTest;
-    pTest = nullptr;
-    delete pTest; // safe
-
-    //Ex25
-    short* pShrt = new short( 5 );
-    delete pShrt;
-    //delete pShrt;
-
-    //Tast26
-    long jumper( 12238743 );
-    //delete jumper;
-    long* ptrTolong( &jumper );
-    //delete ptrTolong;
-    Complex cmplx;
-    //delete cmplx;
-
-    //Ex27
-    vector<Complex*> complV; // can hold pointers to Complex objects
-    Complex* tmpPCmplx;      // space for a Complex pointer
-    for ( size_t ndx = 0 ; ndx < 3 ; ++ndx ) {
-       tmpPCmplx = new Complex; // create a new Complex object on the heap
-       tmpPCmplx->real = ndx;   // set real and img to be the
-       tmpPCmplx->img  = ndx;   // value of the current ndx
-       complV.push_back( tmpPCmplx ); // store the ADDRESS of the object in a vector or pointer to Complex
-    }
-    // display the objects using the pointers stored in the vector
-    for ( size_t ndx = 0 ; ndx < 3 ; ++ndx ) {
-        cout << complV[ ndx ]->real << endl;
-        cout << complV[ ndx ]->img  << endl;
-    }
-    // release the heap space pointed at by the pointers in the vector
-    for ( size_t ndx = 0 ; ndx < 3 ; ++ndx ) {
-        delete complV[ ndx ];
-    }
-    // clear the vector
-    complV.clear();
-
-    //Ex28
-    vector< Colour* > colours;
-    string inputName;
-    unsigned inputR, inputG, inputB;
-
-    // fill vector with Colours from the file
-    // this could be from an actual file but here we are using the keyboard instead of a file (so we don't have to create an actual file)
-    // do you remember the keystroke combination to indicate "end of file" at the keyboard?
-    // somehow the while's test has to fail - from keyboard input
-    while ( cin >> inputName >> inputR >> inputG >> inputB ) {
-        colours.push_back( new Colour(inputName, inputR, inputG, inputB) );
-    }
-
-    // display all the Colours in the vector:
-    for ( size_t ndx = 0; ndx < colours.size(); ++ndx ) {
-        colours[ndx]->display();
-        cout << endl;
-    }
-
-    //Ex29
-    Amplifier Amp;
-    SpeakerSystem Speak;
-    SpeakerSystem Say;
-
-    Amp.attachSpeakers(Speak);
-    Amp.playMusic();
-    Amp.detachSpeakers();
-    Amp.playMusic();
-    Amp.attachSpeakers(Say);
-    Amp.attachSpeakers(Speak);
-
-    //Ex30
-    // write code to model two people in this world
-    Person joeBob("Joe Bob"), billyJane("Billy Jane");
-    // now model these two becoming roommates
-    joeBob.movesInWith( billyJane );
-    // did this work out?
-    cout << joeBob.getName() << " lives with " << joeBob.getRoomiesName() << endl;
-    cout << billyJane.getName() << " lives with " << billyJane.getRoomiesName() << endl;
-}
+} // main
