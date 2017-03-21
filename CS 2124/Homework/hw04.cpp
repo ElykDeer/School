@@ -1,16 +1,16 @@
 /* Author: Kyle Martin
- * 
+ *
  * This code was written for the class CS 2124
- * 
- * The purpose of this code is to simulate a 
+ *
+ * The purpose of this code is to simulate a
  *  game of "Nobles And Their Men".  One can
  *  create some Nobles, create some Warriors,
  *  assign Warriors to Nobles, and bash heads
- *  together.  Be warned: there's no error 
+ *  together.  Be warned: there's no error
  *  checking on whether warriors are assigned
  *  to multiple Nobles, so it's the user's job
  *  to be careful.
- * 
+ *
  * */
 
 
@@ -20,27 +20,27 @@
 #include <vector>
 #include <stdlib.h>
 #include <sstream>
-using namespace std;
 
+using namespace std;
 
 //The Warrior Class -- based on the warrior struct from the previous class
 class Warrior
 {
 public:
 	Warrior(const string& warriorName, const int strength): name(warriorName), strength(strength) {}
-	
+
 	void display() const
 		{ cout << name << " of power " << strength << ".\n"; }
-		
+
 	string getName() const
 		{ return name; }
-		
+
 	int getStrength() const
 		{ return strength; }
-		
+
 	void damage(const double percentLeftAlive)
 		{ strength *= percentLeftAlive; }
-	
+
 private:
 	string name;
 	double strength;
@@ -61,33 +61,33 @@ public:
 	//Get warriors!
 	void hire(Warrior& newBlood)
 		{ army.push_back(&newBlood); }
-	
+
 	//Get rid of warriors
 	void fire(const Warrior& firedBlood)
 	{
 		//Announce what's happening..
 		cout << "\n" << firedBlood.getName() << " you are dishonerably excused from service!\n\n";
-		for (Warrior* inspect : army) //My teacher mentioned that I should include brackets everywhere, just in case... Trying it out
-			{ if (&firedBlood == inspect)
-				{ inspect = nullptr; } }
-		
+
 		//Sort the odd guy out
-		for (size_t i = 0; i < army.size()-1; ++i) //Don't wanna over reach
-			{ if (!army[i]) //if we find our nullptr, swap it to the end and pop it out
-				{ army[i] = army[i+1]; } }
-		army.pop_back();
+		for (size_t i = 0; i < army.size(); ++i)
+			if (army[i] == &firedBlood)
+			{
+				army[i] = army[army.size()-1];
+				army.pop_back();
+				break;
+			}
 	}
-		
+
 	//The Battle command (as a function)
 	void battle(Noble& enemy)
 	{
 		//Announce
 		cout << name << " battles " << enemy.name << "!\n";
-		
+
 		//Gather collective strengths
 		double myStrength = getStrength();
 		double enemyStrength = enemy.getStrength();
-		
+
 		//check if they're already dead
 		if (myStrength == 0 || enemyStrength == 0)
 		{
@@ -96,10 +96,10 @@ public:
 			else if (myStrength == 0)
 					{ cout << name << " is already dead!\n"; }
 			else if (enemyStrength == 0)
-				{ cout << name << " is already dead!\n"; }
+				{ cout << enemy.name << " is already dead!\n"; } //Bug in original version - printed wrong name
 			return;
 		}
-		
+
 		//Battle it out and assign damage
 		const double deathMultiplier = 0; //If someone dies, this is what their death looks like
 		if (myStrength == enemyStrength)
@@ -120,15 +120,15 @@ public:
 			enemy.damage(deathMultiplier);
 			damage(enemyStrength/myStrength);
 		}
-		
+
 	}
-	
+
 	//The Status command (for all warriors)
 	void display() const
 	{
 		//Show off the Noble
 		cout << "\n" << name << " has an army of " << army.size() << "!\n";
-		
+
 		//Print all warriors
 		for (Warrior* inspect : army)
 		{
@@ -136,7 +136,7 @@ public:
 			inspect->display();
 		}
 	}
-	
+
 private:
 	//Determine the army's collective strength
 	int getStrength() const
@@ -145,10 +145,10 @@ private:
 		//Add up everyones strength
 		for (Warrior* inspect : army)
 			{ totalStrength += inspect->getStrength(); }
-			
+
 		return totalStrength;
 	}
-	
+
 	//Distribute damage to the warriors from battle
 	  //Simply multiply percentDamaged by current strength
 	void damage(const double percentLeftAlive)
