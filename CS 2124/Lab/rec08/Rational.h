@@ -6,7 +6,6 @@
  *
  */
 
-
 #ifndef RATIONAL_NUMBERS
 #define RATIONAL_NUMBERS 1
 
