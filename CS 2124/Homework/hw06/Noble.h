@@ -16,6 +16,9 @@
 
 namespace WarriorCraft
 {
+  //Necissary Forwad Dec
+  class Warrior;
+
   //This class is our nobles - who fight and drink
   class Noble
   {
@@ -38,9 +41,12 @@ namespace WarriorCraft
     void battle(Noble& enemy);
 
     //The Status command (also displays their warriors)
-    void display() const;
+    void display(std::ostream&) const;
 
     std::string getName() const;
+
+    //Be notified if a warrior runs away
+    void noWeekNotice(const std::string&);
 
   private:
     //Determine the army's collective strength - for battle
@@ -53,8 +59,9 @@ namespace WarriorCraft
     //Checks if a Noble already has hired a warrior
     Warrior* owns(const std::string&) const;
 
-    vector <Warrior*> army;
+    std::vector <Warrior*> army;
     std::string name;
   };
 }
+std::ostream& operator<<(std::ostream&, const WarriorCraft::Noble&);
 #endif

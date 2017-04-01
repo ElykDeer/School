@@ -30,7 +30,7 @@ int main() {
   Warrior lawless("Xena", 20);
   Warrior mrGreen("Hulk", 8);
   Warrior dylan("Hercules", 3);
-/*
+
   jim.hire(nimoy);
   lance.hire(theGovernator);
   art.hire(wizard);
@@ -51,5 +51,5 @@ int main() {
   art.battle(lance);
   jim.battle(lance);
   linus.battle(billie);
-  billie.battle(lance);*/
+  billie.battle(lance);
 }

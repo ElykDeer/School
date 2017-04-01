@@ -16,6 +16,9 @@
 
 namespace WarriorCraft
 {
+  //Necissary Forwad Dec
+  class Noble;
+
   //The Warrior Class -- based on the warrior struct from the previous class
   class Warrior
   {
@@ -24,7 +27,7 @@ namespace WarriorCraft
     Warrior(const std::string&, const int);
 
     //Cute little display method - nothing complicated
-    void display() const;
+    void display(std::ostream&) const;
 
     //Some standard getters
     std::string getName() const;
@@ -34,9 +37,20 @@ namespace WarriorCraft
     //how much more they have to live).
     void damage(const double);
 
+    //Sets the master pointer, but returns false if the master pointer is full
+    bool newMaster(Noble*);
+
+    //Clears master pointer, returns false if already empty
+    bool release();
+
+    //Allows the warrior to run away from cruel masters - ret false on no master
+    bool runaway();
+
   private:
     std::string name;
     double strength;
+    Noble* master;
   };
 }
+std::ostream& operator<<(std::ostream&, const WarriorCraft::Warrior&);
 #endif
