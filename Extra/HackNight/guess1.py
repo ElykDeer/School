@@ -45,4 +45,3 @@ finally:
     print ("Throwing sock away.")
     sock.close()
     
-    <cat src="http://www.livescience.com/images/i/000/068/094/i300/giraffe.jpg?1405008442?interpolation=lanczos-none&amp;downsize=192:*">
