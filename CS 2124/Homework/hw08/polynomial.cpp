@@ -57,11 +57,16 @@ Polynomial operator+(const Polynomial& lhs, const Polynomial& rhs)
     lhsNode = lhsNode->next;
   }
   if(minDegree == maxDegree)
+  {
+    //Clear zeros at the front
+    while(sum.tail->data==0)
+        sum.popBack();
     return sum;
+  }
 
   if(minDegree == lhs.degreeOfPoly) //rhs is bigger
   {
-    for(size_t i  = (maxDegree-minDegree); i < maxDegree; ++i)
+    for(size_t i  = (maxDegree-minDegree); i <= maxDegree; ++i)
     {
       sum.pushBack(rhsNode->data);
       rhsNode = rhsNode->next;
@@ -69,12 +74,15 @@ Polynomial operator+(const Polynomial& lhs, const Polynomial& rhs)
   }
   else //lhs is bigger
   {
-    for(size_t i  = (maxDegree-minDegree); i < maxDegree; ++i)
+    for(size_t i  = (maxDegree-minDegree); i <= maxDegree; ++i)
     {
       sum.pushBack(lhsNode->data);
       lhsNode = lhsNode->next;
     }
   }
+  //Clear zeros at the front
+  while(sum.tail->data==0)
+      sum.popBack();
   return sum;
 }
 
@@ -104,16 +112,24 @@ Polynomial& Polynomial::operator+=(const Polynomial& rhs)
     myNode = myNode->next;
   }
   if(minDegree == maxDegree)
+  {
+    //Clear zeros at the front
+    while(tail->data==0)
+      popBack();
     return *this;
+  }
 
   if(minDegree == degreeOfPoly) //rhs is bigger
   {
-    for(size_t i  = (maxDegree-minDegree); i < maxDegree; ++i)
+    for(size_t i  = (maxDegree-minDegree); i <= maxDegree; ++i)
     {
       pushBack(rhsNode->data);
       rhsNode = rhsNode->next;
     }
   }
+  //Clear zeros at the front
+  while(tail->data==0)
+      popBack();
   return *this;
 }
 
@@ -122,18 +138,18 @@ Polynomial& Polynomial::operator+=(const Polynomial& rhs)
 Polynomial::Polynomial() : degreeOfPoly(0), head(nullptr), tail(nullptr) {}
 
 Polynomial::Polynomial(const vector<int>& coefficients)
-  : degreeOfPoly(coefficients.size()), head(nullptr), tail(nullptr)
+  : degreeOfPoly(0), head(nullptr), tail(nullptr)
 {
-  for(int co : coefficients)
+  for(const int co : coefficients)
     pushFront(co);
 }
 
 Polynomial::Polynomial(const Polynomial& toCopy)
+: degreeOfPoly(toCopy.degreeOfPoly),  head(recvCopyHelper(toCopy.head)), tail(&getNode(degreeOfPoly-1))
 {
-  //Set up my vars
-  degreeOfPoly = toCopy.degreeOfPoly;
-  head = recvCopyHelper(toCopy.head);  //Actually copy the linkedList
-  tail = &getNode(degreeOfPoly-1);  //Only time that we need to find the tail
+  /*degreeOfPoly = toCopy.; //Set up my vars
+  head = recvCopyHelper(toCopy.head); //Actually copy the linkedList
+  tail = &getNode(degreeOfPoly); //Only time that we need to find the tail*/
 }
 
 Polynomial::~Polynomial()
@@ -251,12 +267,12 @@ size_t Polynomial::degree() const //getsize
 //Evaluate polynomial at X
 int Polynomial::evaluate(const int x) const
 {
-   Polynomial::Node* index = head; //For coefficients
+  Polynomial::Node* index = head; //For coefficients
   int total = 0;
   for(size_t degree = 0; degree < degreeOfPoly; ++degree)
   {
-    int partial = x;
-    for(size_t multiplier = 1; multiplier < degree; ++multiplier)
+    int partial = 1;
+    for(size_t multiplier = 0; multiplier < degree; ++multiplier)
     {
       partial *= x;
     }
@@ -283,29 +299,33 @@ void Polynomial::recvPrintHelper(const Polynomial::Node* node, ostream& os, size
     recvPrintHelper(node->next, os, ++degree);
 
     //Mainly Just nice formating stuff
-    if(degree!=degreeOfPoly)
+    if(degree<(degreeOfPoly))
     {
       if(node->data > 0)
       {
+          //os << "Deg{" << degree << '}' << "Deg-O-P{" << degreeOfPoly << '}';
           os << " + " << node->data;
       }
-      else if(node->data > 0)
+      else if(node->data < 0)
       {
           os << " - " << (node->data*-1);
       }
       else
-        return;
+          return;
     }
     else
       os << node->data;
 
-    os << "x^" << degree-1;
+    if(degree>2)
+        os << "x^" << degree-1;
+    else if(degree>1)
+        os << "x";
   }
 }
 
  Polynomial::Node& Polynomial::getNode(const size_t index) const
 {
-   Polynomial::Node* currentNode = head;
+  Polynomial::Node* currentNode = head;
   for(size_t i = 0; i < index; ++i)
       currentNode = currentNode->next;
   return *currentNode;

@@ -25,6 +25,7 @@ int main() {
     //test copy constructor - the statement below uses the copy constructor
     //to initialize poly3 with the same values as poly4
     Polynomial p5(p4);
+    cout << "p5: " << p5 << endl;
     p5 += p3;
     cout << "Polynomial p5(p4);\n"
          << "p5 += p3;\n";
