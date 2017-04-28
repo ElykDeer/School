@@ -49,7 +49,7 @@ def scrape(bv, functionPointer):
                 functionInAString += str(operand)
             functionInAString += '\n'
         functionInAString += '\n' #Visually Seperate Blocks
-    functionInAString += '\n' #Viually Seperate Functions
+    functionInAString += '\n\n' #Viually Seperate Functions
 
     #Don't rescrape (recursive functions)
     scrapedFunctions.append(functionPointer)

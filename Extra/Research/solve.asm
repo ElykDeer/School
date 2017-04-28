@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;  Hacking StarCraft  ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+GLOBAL _start
 SECTION .text
 
 x47d4f0:
