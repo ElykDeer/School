@@ -1,0 +1,10 @@
+This program asked for a number, which was a little deceiving.. 
+It was in reality looking for an address.  It masked this by moving the input
+number around a bit, so if you didn't look closely, you wouldn't have noticed
+that one move moved [the value at the input] into the comparison.
+
+Answer:
+4196560
+
+Flag:
+flag{i_hope_ur_ready_4_some_pwning_in_a_few_weeks_152924f42982}
