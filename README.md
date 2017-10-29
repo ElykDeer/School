@@ -4,6 +4,7 @@ Classwork located in this repository from NYU Tandon:
 <ul>
 <li>CS 1134 - Data Structures and Algorithms (Python 2.x and 3.x)</li>
 <li>CS 2124 - Object Oriented Programming (C++)</li>
+<li>CS 3943 - Intro To Offensive Security (Graduate Level Course, uses C, Python(2/3), HTML/PHP/SQL, x86-64 Assembly, and Linux Shell Script)</li>
 </ul>
 
-I am also part of the OSIRIS Lab, so I'm posting my personal code for the HackNight challenges.  I take part regularly in their CTF's, and anything I managed to contribute I post as well - still learning!
+I am also part of NYU's Cyber Security Lab, the OSIRIS Lab, but that code is in my OSIRIS Repository.
