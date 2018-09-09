@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+docker build -t os -f Dockerfile.full .
+docker run -it os
+
