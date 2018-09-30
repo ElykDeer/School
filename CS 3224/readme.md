@@ -7,5 +7,7 @@ There are two ways t provide to work with this:
     Option 2: Compile xv6 in Docker to take care of all the awful dependancies and run the generated images on host via QEMU (vs in QEMU in Docker)
 
 You invoke this by running:
-    Option 1: `make run-full`
-    Option 2: `make run-compile`
+
+    Option 1: `make run-full` 
+
+    Option 2: `make run-compile` 
