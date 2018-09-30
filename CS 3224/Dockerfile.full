@@ -6,5 +6,4 @@ ADD xv6 /xv6
 
 RUN cd /xv6 && make clean && make
 
-#CMD ["bash"]
 CMD ["qemu-system-i386", "-serial", "mon:stdio", "-hdb", "/xv6/fs.img", "/xv6/xv6.img", "-smp", "1", "-m", "2G", "-display", "none"]
