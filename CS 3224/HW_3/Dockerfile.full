@@ -1,0 +1,9 @@
+FROM ubuntu:12.04
+
+RUN apt-get update && apt-get upgrade -y && apt-get install build-essential qemu -y
+
+ADD xv6 /xv6
+
+RUN cd /xv6 && make clean && make
+
+CMD ["qemu-system-i386", "-serial", "mon:stdio", "-hdb", "/xv6/fs.img", "/xv6/xv6.img", "-smp", "1", "-m", "2G", "-display", "none"]
