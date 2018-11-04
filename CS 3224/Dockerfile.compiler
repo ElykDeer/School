@@ -1,5 +1,5 @@
 FROM ubuntu:12.04
 
-RUN apt-get update && apt-get upgrade -y && apt-get install build-essential -y
+RUN apt-get update && apt-get install build-essential -y
 
 CMD cd /xv6/xv6 && make clean && make && cp fs.img xv6.img ../ && make clean
