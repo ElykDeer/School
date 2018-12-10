@@ -8,4 +8,11 @@ struct stat {
   uint ino;    // Inode number
   short nlink; // Number of links to file
   uint size;   // Size of file in bytes
+  
+  uint second;
+  uint minute;
+  uint hour;
+  uint day;
+  uint month;
+  uint year;
 };

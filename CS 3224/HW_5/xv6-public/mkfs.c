@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <time.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
@@ -72,7 +73,8 @@ main(int argc, char *argv[])
   struct dirent de;
   char buf[BSIZE];
   struct dinode din;
-
+  time_t rawtime;
+  struct tm *ptm;
 
   static_assert(sizeof(int) == 4, "Integers must be 4 bytes!");
 
@@ -160,6 +162,14 @@ main(int argc, char *argv[])
   off = xint(din.size);
   off = ((off/BSIZE) + 1) * BSIZE;
   din.size = xint(off);
+  time(&rawtime);
+  ptm = gmtime(&rawtime);
+  din.second = ptm->tm_sec;
+  din.minute = ptm->tm_min;
+  din.hour = ptm->tm_hour;
+  din.day = ptm->tm_mday;
+  din.month = ptm->tm_mon;
+  din.year = ptm->tm_year;
   winode(rootino, &din);
 
   balloc(freeblock);
@@ -261,6 +271,8 @@ iappend(uint inum, void *xp, int n)
   char buf[BSIZE];
   uint indirect[NINDIRECT];
   uint x;
+  time_t rawtime;
+  struct tm *ptm;
 
   rinode(inum, &din);
   off = xint(din.size);
@@ -293,5 +305,13 @@ iappend(uint inum, void *xp, int n)
     p += n1;
   }
   din.size = xint(off);
+  time(&rawtime);
+  ptm = gmtime(&rawtime);
+  din.second = ptm->tm_sec;
+  din.minute = ptm->tm_min;
+  din.hour = ptm->tm_hour;
+  din.day = ptm->tm_mday;
+  din.month = ptm->tm_mon;
+  din.year = ptm->tm_year;
   winode(inum, &din);
 }

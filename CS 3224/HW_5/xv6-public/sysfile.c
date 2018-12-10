@@ -5,6 +5,7 @@
 //
 
 #include "types.h"
+#include "date.h"
 #include "defs.h"
 #include "param.h"
 #include "stat.h"
@@ -241,6 +242,7 @@ create(char *path, short type, short major, short minor)
   uint off;
   struct inode *ip, *dp;
   char name[DIRSIZ];
+  struct rtcdate r;
 
   if((dp = nameiparent(path, name)) == 0)
     return 0;
@@ -258,10 +260,20 @@ create(char *path, short type, short major, short minor)
   if((ip = ialloc(dp->dev, type)) == 0)
     panic("create: ialloc");
 
+  cmostime(&r);
+
   ilock(ip);
   ip->major = major;
   ip->minor = minor;
   ip->nlink = 1;
+
+  ip->second = r.second;
+  ip->minute = r.minute;
+  ip->hour = r.hour;
+  ip->day = r.day;
+  ip->month = r.month;
+  ip->year = r.year;
+
   iupdate(ip);
 
   if(type == T_DIR){  // Create . and .. entries.

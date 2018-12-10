@@ -16,6 +16,13 @@ struct inode {
   int ref;            // Reference count
   int flags;          // I_BUSY, I_VALID
 
+  uint second;
+  uint minute;
+  uint hour;
+  uint day;
+  uint month;
+  uint year;
+
   short type;         // copy of disk inode
   short major;
   short minor;

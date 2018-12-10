@@ -20,12 +20,19 @@ struct superblock {
   uint bmapstart;    // Block number of first free map block
 };
 
-#define NDIRECT 12
+#define NDIRECT 6
 #define NINDIRECT (BSIZE / sizeof(uint))
 #define MAXFILE (NDIRECT + NINDIRECT)
 
 // On-disk inode structure
 struct dinode {
+  uint second;
+  uint minute;
+  uint hour;
+  uint day;
+  uint month;
+  uint year;
+  
   short type;           // File type
   short major;          // Major device number (T_DEV only)
   short minor;          // Minor device number (T_DEV only)

@@ -209,6 +209,14 @@ iupdate(struct inode *ip)
   dip->minor = ip->minor;
   dip->nlink = ip->nlink;
   dip->size = ip->size;
+
+  dip->second = ip->second;
+  dip->minute = ip->minute;
+  dip->hour = ip->hour;
+  dip->day = ip->day;
+  dip->month = ip->month;
+  dip->year = ip->year;
+
   memmove(dip->addrs, ip->addrs, sizeof(ip->addrs));
   log_write(bp);
   brelse(bp);
@@ -286,6 +294,14 @@ ilock(struct inode *ip)
     ip->minor = dip->minor;
     ip->nlink = dip->nlink;
     ip->size = dip->size;
+
+    ip->second = dip->second;
+    ip->minute = dip->minute;
+    ip->hour = dip->hour;
+    ip->day = dip->day;
+    ip->month = dip->month;
+    ip->year = dip->year;
+
     memmove(ip->addrs, dip->addrs, sizeof(ip->addrs));
     brelse(bp);
     ip->flags |= I_VALID;
@@ -427,6 +443,13 @@ stati(struct inode *ip, struct stat *st)
   st->type = ip->type;
   st->nlink = ip->nlink;
   st->size = ip->size;
+
+  st->second = ip->second;
+  st->minute = ip->minute;
+  st->hour = ip->hour;
+  st->day = ip->day;
+  st->month = ip->month;
+  st->year = ip->year;
 }
 
 //PAGEBREAK!
