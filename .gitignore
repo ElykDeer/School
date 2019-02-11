@@ -5,3 +5,6 @@ sketch.properties
 __pycache__/
 
 rp++
+
+*.arduino.avr.uno.hex
+*.arduino.avr.uno.elf
