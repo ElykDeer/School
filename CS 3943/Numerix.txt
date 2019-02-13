@@ -1,8 +1,0 @@
-These are the four inputs:
-3735928559
-1337
-868613086753832687
-3503354048
-
-This was my flag:
-flag{gl4d_you_d1dnt_n33d_to_p4rs3_w3ird_f0rmats_huh_ca1c645bdcc7}

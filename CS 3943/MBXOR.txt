@@ -1,2 +1,0 @@
-./xortool -c 0x20 ~/Downloads/ciphertext.txt
-./xortool-xor -f ~/Downloads/ciphertext.txt -s "S0m3Key"
