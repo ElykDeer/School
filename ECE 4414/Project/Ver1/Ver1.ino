@@ -1,5 +1,5 @@
 // Arduino/My Inports
-#include "Player.h"
+#include <Player.h>
 
 #define DRUM
 #include "ButtonDefs.h"
@@ -34,26 +34,28 @@ void loop()
   {
 
   case BUTTON_HH:
-    // Serial.println("Highhat");
     if (!button_pressed_bounce)
-    // if (!player->is_playing())
+    {
+      Serial.println(BUTTON_HH_NAME);
       player->play(BUTTON_HH_NAME);
+    }
     button_pressed_bounce = true;
     break;
 
   case BUTTON_SNARE:
-    // Serial.println("Snare");
     if (!button_pressed_bounce)
-    // if (!player->is_playing())
+    {
+      Serial.println(BUTTON_SNARE_NAME);
       player->play(BUTTON_SNARE_NAME);
+    }
     button_pressed_bounce = true;
     break;
 
   case BUTTON_INVALID:
   default:
-    // Serial.print("Doing nothing...");
+    // Serial.println("Doing nothing");
     button_pressed_bounce = false;
-    delay(100);
+    // delay(100);
     break;
 
   }

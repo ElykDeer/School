@@ -1,4 +1,4 @@
-setup:
+'setup:
 	../arduino lib install "WaveHC"
 
 setup-test:
@@ -14,4 +14,4 @@ example:
 Ver1: Ver1/Ver1.ino
 	../arduino compile --fqbn arduino:avr:uno Ver1
 	../arduino upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Ver1
-	#screen /dev/ttyACM0 115200
+	screen /dev/ttyACM0 115200
