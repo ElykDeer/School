@@ -4,8 +4,9 @@
 #define DRUM
 #include "ButtonDefs.h"
 
+
 Player* player;
-// bool button_pressed_bounce = false;
+bool button_pressed_bounce = false;
 
 
 void setup()
@@ -34,24 +35,24 @@ void loop()
 
   case BUTTON_HH:
     // Serial.println("Highhat");
-    // if (!button_pressed_bounce)
-    if (!player->is_playing())
+    if (!button_pressed_bounce)
+    // if (!player->is_playing())
       player->play(BUTTON_HH_NAME);
-    // button_pressed_bounce = true;
+    button_pressed_bounce = true;
     break;
 
   case BUTTON_SNARE:
     // Serial.println("Snare");
-    // if (!button_pressed_bounce)
-    if (!player->is_playing())
+    if (!button_pressed_bounce)
+    // if (!player->is_playing())
       player->play(BUTTON_SNARE_NAME);
-    // button_pressed_bounce = true;
+    button_pressed_bounce = true;
     break;
 
   case BUTTON_INVALID:
   default:
     // Serial.print("Doing nothing...");
-    // button_pressed_bounce = false;
+    button_pressed_bounce = false;
     delay(100);
     break;
 

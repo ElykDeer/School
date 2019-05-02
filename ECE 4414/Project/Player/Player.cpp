@@ -28,13 +28,6 @@ void error_P(const char *str, const SdReader& card)
 #define error(msg, card) error_P(PSTR(msg), card)
 
 
-// // Sounds:
-// Sound::Sound(string filename) : name(filename), data(nullptr)
-// {
-
-// }
-
-
 // Player:
 Player::Player()
 {
@@ -60,38 +53,48 @@ Player::Player()
   // Try to open the root directory
   if (!root.openRoot(vol))
     error("Can't open root dir!", card);
+
+  for (int i = 0; i < CHANNEL_COUNT; ++i)
+    channels[i] = new File();
 }
 
 bool Player::play(const char* const filename)
 {
-  currently_loaded = find_and_load(filename);
-  if (!wave.create(currently_loaded))
-    return false;
+  for (int i = 0; i < CHANNEL_COUNT; ++i)
+  {
+    if (!channels[i]->active)
+    {
+      channels[i]->active = true;
+      channels[i]->file = find_and_load(filename);
+      channels[i]->index = channel_top;
+      channel_top += 1;
+      channels[i]->sound = new Sound();
 
-  else
-    wave.play();
-  return true;
+      return channels[i]->sound->play(*channels[i]->file);
+    }
+  }
+
+  return false; // No free channels
+  // TODO : Make this kick out the oldest sound instead
 }
 
-bool Player::play(FatReader file)
+bool Player::play(short index)
 {
-  if (!wave.create(file))
-    return false;
-
-  else
-    wave.play();
-  return true;
+  for (int i = 0; i < CHANNEL_COUNT; ++i)
+    if (channels[i]->index == index)
+      return channels[i]->sound->play(*channels[i]->file);
+  return false;  // No such index
 }
 
-void Player::mute()
-{
-  wave.pause();
-}
+// void Player::mute()
+// {
+//   wave.pause();
+// }
 
-bool Player::is_playing() const
-{
-  return wave.isplaying;
-}
+// bool Player::is_playing() const
+// {
+//   return wave.isplaying;
+// }
 
 bool Player::has_error() const
 {
@@ -111,37 +114,38 @@ bool Player::has_error() const
 //     return 0;
 // }
 
-FatReader _find_and_load(const char* const filename, FatReader current_path, FatVolume& vol, const SdReader& card)
+FatReader* _find_and_load(const char* const filename, FatReader* current_path, FatVolume& vol, const SdReader& card)
 {
-  FatReader current_file;  // Current file
+  FatReader* current_file = new FatReader();  // Current file
   dir_t dirBuf;  // Read buffer
 
   // Read every file in the directory one at a time
-  while (current_path.readDir(dirBuf) > 0)
+  while (current_path->readDir(dirBuf) > 0)
   {
     // Skip it if not a subdirectory and not the file we're looking for
     if (!DIR_IS_SUBDIR(dirBuf) && strncmp((char *)dirBuf.name, filename, 11))
       continue;
 
     // Try to open the file
-    if (!current_file.open(vol, dirBuf))
+    if (!current_file->open(vol, dirBuf))
       error("file.open failed", card);
 
     // Recurse if subdir, otherwise return the file
-    if (current_file.isDir())
+    if (current_file->isDir())
     {
-      FatReader temp = _find_and_load(filename, current_file, vol, card);
-      if (temp.isOpen())
+      FatReader* temp = _find_and_load(filename, current_file, vol, card);
+      if (temp != nullptr)
         return temp;
     }
     else
       return current_file;
   }
 
-  return FatReader();
+  delete current_file;
+  return nullptr;
 }
 
-FatReader Player::find_and_load(const char* const filename)
+FatReader* Player::find_and_load(const char* const filename)
 {
-  return _find_and_load(filename, root, vol, card);
+  return _find_and_load(filename, &root, vol, card);
 }
