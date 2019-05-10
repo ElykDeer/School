@@ -34,7 +34,11 @@ void loop()
   if (button_pressed() & BUTTON_HH)
   {
     if (!button_pressed_bounce_a)
-      player->play(BUTTON_HH_NAME);
+    {
+      player->play("00000002WAV");
+      player->play("00000006WAV");
+      player->play("00000011WAV");
+    }
     button_pressed_bounce_a = true;
   }
   else
@@ -43,7 +47,9 @@ void loop()
   if(button_pressed() & BUTTON_SNARE)
   {
     if (!button_pressed_bounce_b)
-      player->play(BUTTON_SNARE_NAME);
+    {
+      player->play("00000009WAV");
+    }
     button_pressed_bounce_b = true;
   }
   else
